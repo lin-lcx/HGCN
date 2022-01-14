@@ -2,7 +2,7 @@
 ## Hybrid Intra- and Inter-modal Interactions with Masked Hypergraph Convolutional Network for Multimodal Cancer Prognosis
 
 
-![Image text](https://github.com/qweghj123/H2-MIL/blob/main/overview.png)
+![Image text](https://github.com/lin-lcx/MHCN/blob/main/overview.png)
 
 ## Abstract
 
