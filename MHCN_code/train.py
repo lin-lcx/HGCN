@@ -26,7 +26,7 @@ from mae_utils import generate_mask
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-# 注意改loss
+
 def prediction(all_data,v_model,val_id,patient_and_time,patient_sur_type,args):
     v_model.eval()
        
@@ -190,8 +190,8 @@ def train_a_epoch(model,train_data,all_data,patient_and_time,patient_sur_type,ba
 
                         
             if args.add_mse_loss_of_mae:
-#                 mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'][mask[0]], target=fea_dict['mae_labels'][mask[0]])
-                mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'], target=fea_dict['mae_labels'])
+                 mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'][mask[0]], target=fea_dict['mae_labels'][mask[0]])
+#                mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'], target=fea_dict['mae_labels'])
 
             survtime_all.append(patient_and_time[id])
             status_all.append(patient_sur_type[id])
