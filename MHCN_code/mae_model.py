@@ -493,8 +493,19 @@ class fusion_model_mae_2(nn.Module):
         
         if len(train_use_type)>1:
             if use_type == train_use_type:
-                mae_x = self.mae(pool_x,mask).squeeze(0)
-                fea_dict['mae_out'] = mae_x
+                mask_mae_x = self.mae(pool_x,mask).squeeze(0) 
+                
+                mae_x = torch.zeros((len(train_use_type),pool_x.size(1))).to(device)
+                Mask_n = 0
+                Truth_n = 0
+
+                for i,flag in enumerate(mask[0][0]):
+                    if flag:  
+                        mae_x[i] = mask_mae_x[len(np.where(mask[0][0]==False)[0])+Mask_n]
+                        Mask_n += 1
+                    else:
+                        mae_x[i] = mask_mae_x[Truth_n]
+                        Truth_n += 1
             else:
                 k=0
                 tmp_x = torch.zeros((len(train_use_type),pool_x.size(1))).to(device)
@@ -508,14 +519,26 @@ class fusion_model_mae_2(nn.Module):
                 mask = np.expand_dims(mask,0)
                 if k==0:
                     mask = np.array([[[False]*len(train_use_type)]])
-                mae_x = self.mae(tmp_x,mask).squeeze(0)
-                fea_dict['mae_out'] = mae_x   
+                mask_mae_x = self.mae(tmp_x,mask).squeeze(0)  
+                  
+                mae_x = torch.zeros((len(train_use_type),pool_x.size(1))).to(device)
+                Truth_n = 0
+                Mask_n = 0
+                for i,flag in enumerate(mask[0][0]):
+                    if flag:  
+                        mae_x[i] = mask_mae_x[len(np.where(mask[0][0]==False)[0])+Mask_n]
+                        Mask_n += 1
+                    else:
+                        mae_x[i] = mask_mae_x[Truth_n]
+                        Truth_n += 1
 
-
-
+        
+            fea_dict['mae_out'] = mae_x 
+            save_fea['after_mae'] = mae_x.cpu().detach().numpy() 
+            
             if mix:
                 mae_x = self.mix(mae_x)
-
+                save_fea['after_mix'] = mae_x.cpu().detach().numpy() 
 
             k=0
             if 'img' in train_use_type and 'img' in use_type:
