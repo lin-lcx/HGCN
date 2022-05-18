@@ -10,7 +10,11 @@ Cancer prognosis requires exploiting complementary multimodal information, e.g.,
 
 ## Data processing
 **Genomic profile** can be downloaded from the [cBioPortal](https://www.cbioportal.org/).Five genomic embeddings is from [MSigDB](https://www.gseamsigdb.org/gsea/msigdb/gene_families.jsp?ex=1).
+
+
 **Pathological slide** and **clinical records** can be downloaded from the [GDC](https://portal.gdc.cancer.gov/).
+
+
 The detailed steps of processing data can be seen in **gendata.ipynb**,this file shows how to encapsulate a data into the format we want.The tool for building graph neural network is pytorch geometric.
 
 ## Train
