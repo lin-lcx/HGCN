@@ -191,7 +191,6 @@ def train_a_epoch(model,train_data,all_data,patient_and_time,patient_sur_type,ba
                         
             if args.add_mse_loss_of_mae:
                  mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'][mask[0]], target=fea_dict['mae_labels'][mask[0]])
-#                mse_loss_of_mae += args.mse_loss_of_mae_factor * mes_loss_of_mae(input=fea_dict['mae_out'], target=fea_dict['mae_labels'])
 
             survtime_all.append(patient_and_time[id])
             status_all.append(patient_sur_type[id])
@@ -372,33 +371,29 @@ def main(args):
 
   
     if cancer_type == 'lihc': 
-        patients = joblib.load('/home/cxl/TCGA/LIHC/lihc_patients_model_3_287.pkl')
-        sur_and_time = joblib.load('/home/cxl/TCGA/LIHC/lihc_sur_and_time.pkl')
-        all_data=joblib.load('/data17/lcx/lihc/lihc_dropout_gnn_data_aug.pkl')
-        
-#         patients = joblib.load('your path')
-#         sur_and_time = joblib.load('your path')
-#         all_data=joblib.load('your pathl')        
+        patients = joblib.load('your path')
+        sur_and_time = joblib.load('your path')
+        all_data=joblib.load('your path')        
     
     elif cancer_type == 'lusc': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
-        all_data=joblib.load('your pathl')     
+        all_data=joblib.load('your path')     
     
     elif cancer_type == 'esca': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
-        all_data=joblib.load('your pathl')    
+        all_data=joblib.load('your path')    
     
     elif cancer_type == 'luad': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
-        all_data=joblib.load('your pathl')     
+        all_data=joblib.load('your path')     
 
     elif cancer_type == 'ucec': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
-        all_data=joblib.load('your pathl')             
+        all_data=joblib.load('your path')             
 
 
     patient_sur_type, patient_and_time, kf_label = get_patients_information(patients,sur_and_time)
@@ -427,9 +422,7 @@ def main(args):
     all_epoch_val_ci = []
     all_epoch_test_ci = []
 
-    ##
-    
-#     setup_seed(1)
+
     repeat = -1
     for seed in range(start_seed,start_seed+repeat_num):
         repeat+=1
@@ -441,8 +434,6 @@ def main(args):
         gnn_time = {}
         each_model_time = {'img':{},'rna':{},'cli':{},'imgrna':{},'imgcli':{},'rnacli':{}}
 
-        
-#         each_model_time_cli_3 = {'img':{},'rna':{},'cli':{}}
         val_gnn_time = {}
         test_fold_ci = []
 
@@ -523,7 +514,6 @@ def main(args):
     
 
             t_model.eval() 
-            print('testtttttttttttttttttttttt')
 
             
             t_test_loss,test_ci,_,_,_ = prediction(all_data,t_model,test_data,patient_and_time,patient_sur_type,args)
@@ -573,7 +563,7 @@ def main(args):
             print('all ci:',test_ci)
 
 
-#             torch.save(t_model.state_dict(), 'your path'+sys_time.strftime('%Y-%m-%d')+label+'_'+str(seed)+'_'+str(n_fold)+'.pth')
+            torch.save(t_model.state_dict(), 'your path'+sys_time.strftime('%Y-%m-%d')+label+'_'+str(seed)+'_'+str(n_fold)+'.pth')
             del model, train_data, test_data, t_model
             
 
@@ -618,7 +608,6 @@ def main(args):
 def get_params():
     parser = argparse.ArgumentParser()
     parser.add_argument("--cancer_type", type=str, default="lihc", help="Cancer type")
-
     parser.add_argument("--img_cox_loss_factor", type=float, default=5, help="img_cox_loss_factor")
     parser.add_argument("--rna_cox_loss_factor", type=float, default=1, help="rna_cox_loss_factor")
     parser.add_argument("--cli_cox_loss_factor", type=float, default=5, help="cli_cox_loss_factor")
@@ -627,11 +616,11 @@ def get_params():
     parser.add_argument("--add_mse_loss_of_mae", action='store_true', default=True, help="add_mse_loss_of_mae")
     parser.add_argument("--mse_loss_of_mae_factor", type=float, default=5, help="mae_loss_factor")
     parser.add_argument("--start_seed", type=int, default=0, help="start_seed")
-    parser.add_argument("--repeat_num", type=int, default=1, help="Number of repetitions of the experiment")
+    parser.add_argument("--repeat_num", type=int, default=5, help="Number of repetitions of the experiment")
     parser.add_argument("--fusion_model", type=str, default="fusion_model_mae_2", help="")
     parser.add_argument("--drop_out_ratio", type=float, default=0.5, help="Drop_out_ratio")
     parser.add_argument("--lr", type=float, default=0.00003, help="Learning rate of model training")
-    parser.add_argument("--epochs", type=int, default=6, help="Cycle times of model training")
+    parser.add_argument("--epochs", type=int, default=60, help="Cycle times of model training")
     parser.add_argument("--batch_size", type=int, default=32, help="Data volume of model training once")
     parser.add_argument("--n_hidden", type=int, default=512, help="Model middle dimension")    
     parser.add_argument("--out_classes", type=int, default=512, help="Model out dimension")
