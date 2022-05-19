@@ -441,9 +441,10 @@ class fusion_model_mae_2(nn.Module):
         self.lin2_rna = torch.nn.Linear(out_classes//4,1) 
         self.lin1_cli = torch.nn.Linear(out_classes,out_classes//4)
         self.lin2_cli = torch.nn.Linear(out_classes//4,1)         
-        
 
-        self.norm = LayerNorm(in_feats)
+        self.norm_img = LayerNorm(out_classes//4)
+        self.norm_rna = LayerNorm(out_classes//4)
+        self.norm_cli = LayerNorm(out_classes//4)
         self.relu = torch.nn.ReLU() 
         self.dropout=nn.Dropout(p=dropout)
 
@@ -583,7 +584,7 @@ class fusion_model_mae_2(nn.Module):
         if 'img' in data_type:
             x_img = self.lin1_img(x[k])
             x_img = self.relu(x_img)
-            x_img = self.norm(x_img)
+            x_img = self.norm_img(x_img)
             x_img = self.dropout(x_img)    
 
             x_img = self.lin2_img(x_img).unsqueeze(0) 
@@ -592,7 +593,7 @@ class fusion_model_mae_2(nn.Module):
         if 'rna' in data_type:
             x_rna = self.lin1_rna(x[k])
             x_rna = self.relu(x_rna)
-            x_rna = self.norm(x_rna)
+            x_rna = self.norm_rna(x_rna)
             x_rna = self.dropout(x_rna) 
 
             x_rna = self.lin2_rna(x_rna).unsqueeze(0) 
@@ -601,7 +602,7 @@ class fusion_model_mae_2(nn.Module):
         if 'cli' in data_type:
             x_cli = self.lin1_cli(x[k])
             x_cli = self.relu(x_cli)
-            x_cli = self.norm(x_cli)
+            x_cli = self.norm_cli(x_cli)
             x_cli = self.dropout(x_cli)
 
             x_cli = self.lin2_rna(x_cli).unsqueeze(0) 
