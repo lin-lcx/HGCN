@@ -17,7 +17,8 @@ Cancer prognosis requires exploiting complementary multimodal information, e.g.,
 
 The detailed steps of processing data can be seen in **gendata.ipynb**,this file shows how to encapsulate a data into the format we want.The tool for building graph neural network is pytorch geometric.
 
-**Hyperparameter setting** and **Experimental environment** are shown in **Supplementary**.
+
 
 ## Train
 After setting the parameters and save path in the file train.py, you can directly use the command line **python train.py** for training. The training process will be printed out, and the prediction results will be saved in the path.
+**Hyperparameter setting** and **Experimental environment** are shown in **Supplementary**.
