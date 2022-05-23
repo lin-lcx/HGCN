@@ -7,7 +7,7 @@
 
 # Hyperparameter setting
 
-Dataset | λ_{0} | $\lambda_{c}$ | $\lambda_{p}$ | $\lambda_{r}$ | C | LR        | Dropout | Epoch | Batch size  
+Dataset | λ0 | λc | λp | λr | C | LR        | Dropout | Epoch | Batch size  
  ---- | ----- | ------  | ----- | ------ | ----- | ------ | ----- | ------ | ----- 
 LIHC    | 5           | 1             | 5             | 5             | 512  |3e^{-5}|  0.5     | 60    | 32                    
 ESCA    | 5    | 1             | 5             | 5                    | 512  |3e^{-5}|  0.5     | 60    | 32                
