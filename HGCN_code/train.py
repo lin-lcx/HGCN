@@ -374,27 +374,32 @@ def main(args):
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
         all_data=joblib.load('your path')        
-    
+        seed_fit_split = joblib.load('your path')
     elif cancer_type == 'lusc': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
         all_data=joblib.load('your path')     
-    
+        seed_fit_split = joblib.load('your path')
     elif cancer_type == 'esca': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
         all_data=joblib.load('your path')    
-    
+        seed_fit_split = joblib.load('your path')
     elif cancer_type == 'luad': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
         all_data=joblib.load('your path')     
-
+        seed_fit_split = joblib.load('your path')
     elif cancer_type == 'ucec': 
         patients = joblib.load('your path')
         sur_and_time = joblib.load('your path')
         all_data=joblib.load('your path')             
-
+        seed_fit_split = joblib.load('your path')
+    elif cancer_type == 'kirc': 
+        patients = joblib.load('your path')
+        sur_and_time = joblib.load('your path')
+        all_data=joblib.load('your path')             
+        seed_fit_split = joblib.load('your path')
 
     patient_sur_type, patient_and_time, kf_label = get_patients_information(patients,sur_and_time)
 
@@ -470,12 +475,18 @@ def main(args):
 
             optimizer=Adam(model.parameters(),lr=lr,weight_decay=5e-4)
 
-            t_train_data = np.array(patients)[train_index]
-            t_l = []
-            for x in t_train_data:
-                t_l.append(patient_sur_type[x])
-            train_data, val_data ,_ , _ = train_test_split(t_train_data,t_train_data,test_size=0.25,random_state=1,stratify=t_l)         
-            test_data = np.array(patients)[test_index]
+            
+            if args.if_fit_split:
+                train_data = seed_fit_split[n_fold-1][0]
+                val_data = seed_fit_split[n_fold-1][1]
+                test_data = seed_fit_split[n_fold-1][2]
+            else:
+                t_train_data = np.array(patients)[train_index]
+                t_l = []
+                for x in t_train_data:
+                    t_l.append(patient_sur_type[x])
+                train_data, val_data ,_ , _ = train_test_split(t_train_data,t_train_data,test_size=0.25,random_state=1,stratify=t_l)         
+                test_data = np.array(patients)[test_index]
 
             print(len(train_data),len(val_data),len(test_data))
             fold_patients.append(train_data)
@@ -627,6 +638,7 @@ def get_params():
     parser.add_argument("--mix", action='store_true', default=True, help="mix mae")
     parser.add_argument("--if_adjust_lr", action='store_true', default=True, help="if_adjust_lr")
     parser.add_argument("--adjust_lr_ratio", type=float, default=0.5, help="adjust_lr_ratio")
+    parser.add_argument("--if_fit_split", action='store_true', default=False, help="fixed division/random division")
     parser.add_argument("--details", type=str, default='', help="Experimental details")
     args, _ = parser.parse_known_args()
     return args
