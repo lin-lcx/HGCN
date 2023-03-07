@@ -23,5 +23,5 @@ After setting the parameters and save path in the file train.py, you can directl
 
 **Hyperparameter setting** and **Experimental environment** are shown in **Supplementary**.
 
-The folder **data_splite** contains the data division we used for the experiment. If you want to use it, you can modify the parameter **if_fit_split** to True.
+The folder **data_split** contains the data division we used for the experiment. If you want to use it, you can modify the parameter **if_fit_split** to True.
 
