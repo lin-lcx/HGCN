@@ -18,8 +18,8 @@ The detailed steps of processing data can be seen in **gendata.ipynb**,this file
 
 ## Data
 
-We provide the data and labels (**patients, sur_and_time, all_data, seed_fit_split**) required for the experiment in the article, as well as a set of trained model parameters, in the link below:
-https://drive.google.com/drive/folders/1PIyGLj9NUSj07b16GmJ-b7mp7A5j09D1?usp=share_link
+We provide the [data and labels](https://drive.google.com/drive/folders/1PIyGLj9NUSj07b16GmJ-b7mp7A5j09D1?usp=share_link) (**patients, sur_and_time, all_data, seed_fit_split**) required for the experiment in the article, as well as a set of trained model parameters.
+
 
 
 ## Train
