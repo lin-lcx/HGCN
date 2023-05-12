@@ -29,3 +29,15 @@ After setting the parameters and save path in the file train.py, you can directl
 
 The folder **data_split** contains the data division we used for the experiment. If you want to use it, you can modify the parameter **if_fit_split** to True.
 
+## Citation
+- If you found our work useful in your research, please consider citing our works(s) at:
+```
+@article{hou2023hybrid,
+  title={Hybrid Graph Convolutional Network with Online Masked Autoencoder for Robust Multimodal Cancer Survival Prediction},
+  author={Hou, Wentai and Lin, Chengxuan and Yu, Lequan and Qin, Jing and Yu, Rongshan and Wang, Liansheng},
+  journal={IEEE Transactions on Medical Imaging},
+  year={2023},
+  publisher={IEEE}
+}
+```
+
