@@ -14,6 +14,8 @@ Cancer survival prediction requires exploiting complementary multimodal informat
 **Pathological slide** and **clinical records** can be downloaded from the [GDC](https://portal.gdc.cancer.gov/).
 **Clinical records** included in different trials are shown in **Supplementary**.
 
+**cut_and_pretrain.py** gives the code for cutting patch and pre-training.
+
 The detailed steps of processing data can be seen in **gendata.ipynb**,this file shows how to encapsulate a data into the format we want.The tool for building graph neural network is pytorch geometric.
 
 ## Data
